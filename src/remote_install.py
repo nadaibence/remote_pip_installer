@@ -8,10 +8,9 @@ import time
 
 class RemotePip():
 
-    def __init__(self, dest='/data/TFAD_dev/nadai1benceb09/pyinstallers', config_path='/app/config.cfg', reqs_path='/app/requirements.txt', delete_files=True):
+    def __init__(self, config_path='/app/config.cfg', reqs_path='/app/requirements.txt', delete_files=True):
         self.config_path = config_path
         self.reqs_path = reqs_path
-        self.dest = dest
         self.delete_files = delete_files
         
         cfg = configparser.ConfigParser()
@@ -20,6 +19,7 @@ class RemotePip():
         self.user = cfg.get('CREDS', 'username')
         self.pw = cfg.get('CREDS', 'password')
         self.pip_path = cfg.get('PIP_PATH', 'path')
+        self.dest = cfg.get('HOST', 'dest')
 
         self.remote_client = paramiko.SSHClient()
         self.remote_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -85,5 +85,5 @@ class RemotePip():
 
 
 if __name__ == '__main__':
-    rm_pip = RemotePip(delete_files=True)
+    rm_pip = RemotePip()
     rm_pip.run()
