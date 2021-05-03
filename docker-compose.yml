@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+
+    installer:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        volumes:
+            - ./src:/app/src
+        command: ["python", "./src/remote_install.py"]
+        #tty: true       
