@@ -1,4 +1,4 @@
-FROM python:3.6-slim
+FROM python:3.6
 
 WORKDIR /app
 ARG REMOTE_HOST
@@ -11,7 +11,7 @@ RUN pip install paramiko
 RUN pip install --force-reinstall pip==9.0.3
 
 RUN mkdir python_packages
-RUN pip download -r requirements.txt -d '/app/python_packages'
+RUN pip download --platform=manylinux1_x86_64 --only-binary=:all: -r requirements.txt -d '/app/python_packages'
 RUN tar cvfz python_packages.tgz python_packages
 
 RUN apt-get update
